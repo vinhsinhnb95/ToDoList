@@ -1,0 +1,9 @@
+excluded:
+  - Pods
+
+line_length:
+  - 300 # warning
+  - 400 # error  
+
+disabled_rules: 
+  - force_cast  
