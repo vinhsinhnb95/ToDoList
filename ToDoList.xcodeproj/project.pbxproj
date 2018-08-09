@@ -21,6 +21,9 @@
 		25B96376211BE9850022F6CE /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B96375211BE9850022F6CE /* UpdateViewController.swift */; };
 		25B96378211BF2480022F6CE /* CompletedActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B96377211BF2480022F6CE /* CompletedActivityCell.swift */; };
 		25B9637A211BF4430022F6CE /* CompletedActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B96379211BF4430022F6CE /* CompletedActivityViewController.swift */; };
+		25B9637C211BFD570022F6CE /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B9637B211BFD570022F6CE /* LocalNotificationManager.swift */; };
+		25B9637E211C2EFD0022F6CE /* AddDoneButtonKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B9637D211C2EFD0022F6CE /* AddDoneButtonKeyboard.swift */; };
+		25B96380211C3A770022F6CE /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B9637F211C3A770022F6CE /* Alert.swift */; };
 		C19B715C578CA30D8CC6331C /* Pods_ToDoList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A58778FEE12B5B601FAEE018 /* Pods_ToDoList.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +44,9 @@
 		25B96375211BE9850022F6CE /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		25B96377211BF2480022F6CE /* CompletedActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedActivityCell.swift; sourceTree = "<group>"; };
 		25B96379211BF4430022F6CE /* CompletedActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedActivityViewController.swift; sourceTree = "<group>"; };
+		25B9637B211BFD570022F6CE /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
+		25B9637D211C2EFD0022F6CE /* AddDoneButtonKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDoneButtonKeyboard.swift; sourceTree = "<group>"; };
+		25B9637F211C3A770022F6CE /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		326E6BD960187F8519C87C74 /* Pods-ToDoList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoList.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoList/Pods-ToDoList.release.xcconfig"; sourceTree = "<group>"; };
 		A58778FEE12B5B601FAEE018 /* Pods_ToDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDFF92FBD0595080B7CB3ACE /* Pods-ToDoList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoList/Pods-ToDoList.debug.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +124,8 @@
 			children = (
 				25B96370211A56020022F6CE /* ActivityCell.swift */,
 				25B96377211BF2480022F6CE /* CompletedActivityCell.swift */,
+				25B9637D211C2EFD0022F6CE /* AddDoneButtonKeyboard.swift */,
+				25B9637F211C3A770022F6CE /* Alert.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -126,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				25B96373211BB5AD0022F6CE /* Date.swift */,
+				25B9637B211BFD570022F6CE /* LocalNotificationManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -255,11 +264,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				25B9636F211A50F60022F6CE /* Activity+CoreDataProperties copy.swift in Sources */,
+				25B9637E211C2EFD0022F6CE /* AddDoneButtonKeyboard.swift in Sources */,
 				25B96367211A48AB0022F6CE /* ActivityController.swift in Sources */,
 				25B9637A211BF4430022F6CE /* CompletedActivityViewController.swift in Sources */,
 				25B96376211BE9850022F6CE /* UpdateViewController.swift in Sources */,
 				25B9636E211A50F60022F6CE /* Activity+CoreDataClass copy.swift in Sources */,
+				25B96380211C3A770022F6CE /* Alert.swift in Sources */,
 				25B96374211BB5AD0022F6CE /* Date.swift in Sources */,
+				25B9637C211BFD570022F6CE /* LocalNotificationManager.swift in Sources */,
 				25B96350211A43130022F6CE /* MainViewController.swift in Sources */,
 				25B96371211A56020022F6CE /* ActivityCell.swift in Sources */,
 				25B96356211A43130022F6CE /* ToDoList.xcdatamodeld in Sources */,

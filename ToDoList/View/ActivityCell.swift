@@ -18,7 +18,7 @@ class ActivityCell: UITableViewCell {
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
 
-    var isExpanded:Bool = false {
+    var isExpanded: Bool = false {
         didSet {
             if !isExpanded {
                 self.heightConstrant.constant = 0.0

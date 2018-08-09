@@ -17,14 +17,14 @@ class UpdateViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        informationField.becomeFirstResponder()
         if activity != nil {
             loadData()
         }
     }
-    
     func  loadData() {
         informationField.text = activity?.information
-        datePicker.date = activity?.deadline as! Date
+        datePicker.date = (activity?.deadline as? Date) ?? Date()
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,10 +33,14 @@ class UpdateViewController: UIViewController {
     }
 
     @IBAction func confirmButtonPress(_ sender: Any) {
-        let information = informationField.text!
+        guard let information = informationField.text, information.count != 0 else {
+            self.present(Alert(message: "Dont have information").alert, animated: true, completion: nil)
+            return
+        }
         let date = datePicker.date as NSDate
         var _ = Activity.update(activity: activity!, information: information, deadline: date)
         navigationController?.popViewController(animated: true)
     }
+
 }
 extension UpdateViewController: UINavigationControllerDelegate {}

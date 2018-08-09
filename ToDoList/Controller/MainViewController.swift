@@ -10,6 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityTableView: UITableView!
     var activities: [Activity]!
     var activitySelected: Activity?
@@ -56,17 +57,14 @@ class MainViewController: UIViewController {
         }
     }
 
-    @IBAction func updateInfoButtonPress(_ sender: Any) {
-        if let activitySelected = activitySelected {
-            performSegue(withIdentifier: "activityInformation", sender: activitySelected)
-        }
+    @IBAction func updateButtonPress(_ sender: Any) {
+        tableView(activityTableView, didDeselectRowAt: indexPath!)
     }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "activityInformation" {
             if let destination = segue.destination as? UpdateViewController {
-                if let activity = sender as? Activity {
-                    destination.activity = activity
-                }
+                destination.activity = activitySelected
             }
         }
     }

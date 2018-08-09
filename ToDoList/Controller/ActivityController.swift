@@ -15,6 +15,7 @@ class ActivityController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        informaintonField.becomeFirstResponder()
         datePicker.datePickerMode = .dateAndTime
     }
 
@@ -25,11 +26,15 @@ class ActivityController: UIViewController {
     }
 
     @IBAction func confirmButtonPress(_ sender: Any) {
-        let information = informaintonField.text!
+        guard let information = informaintonField.text, information.count != 0 else {
+            self.present(Alert(message: "Dont have information").alert, animated: true, completion: nil)
+            return
+        }
         let date = datePicker.date as NSDate
         var _ = Activity.insert(information: information, deadline: date)
         navigationController?.popViewController(animated: true)
     }
+
 }
 
 extension ActivityController: UINavigationControllerDelegate {}

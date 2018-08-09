@@ -12,7 +12,7 @@ class CompletedActivityCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var informationLabel: UILabel!
     @IBOutlet weak var heartImage: UIImageView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,7 +27,4 @@ class CompletedActivityCell: UITableViewCell {
             heartImage.image = UIImage(named: "empty-heart")
         }
     }
-
-    
-
 }

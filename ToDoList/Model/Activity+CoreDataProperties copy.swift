@@ -40,6 +40,7 @@ extension Activity {
     static func update(activity: NSManagedObject, information: String, deadline: NSDate) {
         let activity = activity as? Activity
         activity?.information = information
+        activity?.deadline = deadline
         do {
             try AppDelegate.managedObjectContext?.save()
         } catch {

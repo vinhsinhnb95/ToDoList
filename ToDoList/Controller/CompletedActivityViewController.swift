@@ -13,6 +13,7 @@ class CompletedActivityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         activities = Activity.getAllCompleted()
     }
 
