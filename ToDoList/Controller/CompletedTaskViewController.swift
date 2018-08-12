@@ -1,5 +1,5 @@
 //
-//  CompletedActivityViewController.swift
+//  CompletedTaskViewController.swift
 //  ToDoList
 //
 //  Created by LTT on 8/9/18.
@@ -8,13 +8,12 @@
 
 import UIKit
 
-class CompletedActivityViewController: UIViewController {
-    var activities: [Activity]!
+class CompletedTaskViewController: UIViewController {
+    var tasks: [Task]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        activities = Activity.getAllCompleted()
+        tasks = Task.getAllCompleted()
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,21 +23,21 @@ class CompletedActivityViewController: UIViewController {
 
 }
 
-extension CompletedActivityViewController: UITableViewDelegate {
+extension CompletedTaskViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 95.0
     }
 }
 
-extension CompletedActivityViewController: UITableViewDataSource {
+extension CompletedTaskViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return activities.count
+        return tasks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CompletedActivityCell", for: indexPath) as! CompletedActivityCell
-        let activity = activities[indexPath.row]
-        cell.config(activity: activity)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CompletedTaskCell", for: indexPath) as! CompletedTaskCell
+        let task = tasks[indexPath.row]
+        cell.task = task
         return cell
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ActivityCell.swift
+//  TaskCell.swift
 //  ToDoList
 //
 //  Created by LTT on 8/8/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActivityCell: UITableViewCell {
+class TaskCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var informationField: UILabel!
     @IBOutlet weak var heartImage: UIButton!
@@ -17,6 +17,19 @@ class ActivityCell: UITableViewCell {
     @IBOutlet weak var setTimeButton: UIButton!
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
+
+    var task: Task? {
+        didSet {
+            informationField.text = task?.information
+            let date = task?.deadline! as! Date
+            dateLabel.text = Date.toString(date)()
+            if task?.priority == false {
+                heartImage.setImage(UIImage(named: "empty-heart"), for: .normal)
+            } else {
+                heartImage.setImage(UIImage(named: "filled-heart"), for: .normal)
+            }
+        }
+    }
 
     var isExpanded: Bool = false {
         didSet {
@@ -43,18 +56,6 @@ class ActivityCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
-    }
-
-    func config(activity: Activity) {
-        informationField.text = activity.information
-        let date = activity.deadline! as Date
-        dateLabel.text = Date.toString(date)()
-        if activity.priority == false {
-            heartImage.setImage(UIImage(named: "empty-heart"), for: .normal)
-        } else {
-            heartImage.setImage(UIImage(named: "filled-heart"), for: .normal)
-        }
-
     }
 
 }

@@ -21,10 +21,10 @@ class LocalNotification {
         }
     }
 
-    func sendLocalNotification (in time: TimeInterval, activity: Activity) {
+    func sendLocalNotification (in time: TimeInterval, task: Task) {
         let content = UNMutableNotificationContent()
         content.title = NSString.localizedUserNotificationString(forKey: "Deadline", arguments: nil)
-        content.body = NSString.localizedUserNotificationString(forKey: activity.information!, arguments: nil)
+        content.body = NSString.localizedUserNotificationString(forKey: task.information!, arguments: nil)
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: time, repeats: false)
         let request = UNNotificationRequest(identifier: "Timer", content: content, trigger: trigger)
         center.add(request) { error in

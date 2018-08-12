@@ -29,7 +29,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ActivityCell" rowHeight="196" id="3oV-LS-mcf" customClass="ActivityCell" customModule="ToDoList" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="196" id="3oV-LS-mcf" customClass="TaskCell" customModule="ToDoList" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="196"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3oV-LS-mcf" id="PI6-mU-Vsm">
@@ -112,7 +112,7 @@
                                                             <state key="normal" image="calendar-with-a-clock-time-tools"/>
                                                             <connections>
                                                                 <action selector="updateButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MHW-2M-5nA"/>
-                                                                <segue destination="2Ut-ga-znb" kind="show" identifier="activityInformation" id="xJ6-ln-8Wc"/>
+                                                                <segue destination="2Ut-ga-znb" kind="show" identifier="TaskInformation" id="xJ6-ln-8Wc"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -184,18 +184,17 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityTableView" destination="JpQ-uP-KqR" id="j75-ec-xGK"/>
-                        <outlet property="tableView" destination="JpQ-uP-KqR" id="seE-8S-5Uy"/>
+                        <outlet property="tableView" destination="JpQ-uP-KqR" id="j75-ec-xGK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1056.8" y="118.29085457271366"/>
         </scene>
-        <!--Information-->
+        <!--Update Task-->
         <scene sceneID="ekz-dR-LnB">
             <objects>
-                <viewController id="2Ut-ga-znb" customClass="UpdateViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="2Ut-ga-znb" customClass="UpdateTaskViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="te7-UE-oKF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -259,7 +258,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="j98-mq-wNt"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Information" id="HPu-rI-Yep"/>
+                    <navigationItem key="navigationItem" title="Update Task" id="HPu-rI-Yep"/>
                     <connections>
                         <outlet property="confirmButton" destination="S1R-fk-vPD" id="lOK-Px-gQx"/>
                         <outlet property="datePicker" destination="CZp-7B-o4C" id="ng2-vB-GfR"/>
@@ -270,10 +269,10 @@
             </objects>
             <point key="canvasLocation" x="392.80000000000001" y="985.45727136431788"/>
         </scene>
-        <!--Completed Activities-->
+        <!--Completed Tasks-->
         <scene sceneID="gSs-hm-mu4">
             <objects>
-                <viewController id="I4h-Qg-ZJ9" customClass="CompletedActivityViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="I4h-Qg-ZJ9" customClass="CompletedTaskViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cvG-lD-8LD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -282,7 +281,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CompletedActivityCell" rowHeight="95" id="tQ4-za-Rh8" customClass="CompletedActivityCell" customModule="ToDoList" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CompletedTaskCell" rowHeight="95" id="tQ4-za-Rh8" customClass="CompletedTaskCell" customModule="ToDoList" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tQ4-za-Rh8" id="wGa-O9-JO9">
@@ -345,16 +344,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Atd-tj-Gxw"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Completed Activities" id="xsr-nz-qSa"/>
+                    <navigationItem key="navigationItem" title="Completed Tasks" id="xsr-nz-qSa"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztp-K6-FAL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1908" y="994"/>
         </scene>
-        <!--Activity-->
+        <!--New Task-->
         <scene sceneID="NPg-Cc-1XX">
             <objects>
-                <viewController storyboardIdentifier="activityController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="848-XK-tQD" customClass="ActivityController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="activityController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="848-XK-tQD" customClass="NewTaskController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pd4-FX-Clf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -369,7 +368,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="YES"/>
                                         </userDefinedRuntimeAttributes>
@@ -417,7 +416,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="61n-d5-GvV"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Activity" id="RDO-XZ-Clm"/>
+                    <navigationItem key="navigationItem" title="New Task" id="RDO-XZ-Clm"/>
                     <connections>
                         <outlet property="datePicker" destination="p7T-FP-M3F" id="i3n-my-rLS"/>
                         <outlet property="informaintonField" destination="cOz-I0-z9M" id="jzv-Tw-Gin"/>

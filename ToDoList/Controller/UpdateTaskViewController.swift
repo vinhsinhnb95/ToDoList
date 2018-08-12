@@ -8,23 +8,23 @@
 
 import UIKit
 
-class UpdateViewController: UIViewController {
+class UpdateTaskViewController: UIViewController {
 
     @IBOutlet weak var informationField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var confirmButton: UIButton!
-    var activity: Activity?
+    var task: Task?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        informationField.becomeFirstResponder()
-        if activity != nil {
+        informationField.delegate = self
+        if task != nil {
             loadData()
         }
     }
     func  loadData() {
-        informationField.text = activity?.information
-        datePicker.date = (activity?.deadline as? Date) ?? Date()
+        informationField.text = task?.information
+        datePicker.date = (task?.deadline as? Date) ?? Date()
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,9 +38,15 @@ class UpdateViewController: UIViewController {
             return
         }
         let date = datePicker.date as NSDate
-        var _ = Activity.update(activity: activity!, information: information, deadline: date)
+        var _ = Task.update(task: task!, information: information, deadline: date)
         navigationController?.popViewController(animated: true)
     }
 
 }
-extension UpdateViewController: UINavigationControllerDelegate {}
+extension UpdateTaskViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+extension UpdateTaskViewController: UINavigationControllerDelegate {}

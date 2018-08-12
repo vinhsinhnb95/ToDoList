@@ -1,5 +1,5 @@
 //
-//  ActivityController.swift
+//  TaskController.swift
 //  ToDoList
 //
 //  Created by LTT on 8/8/18.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-class ActivityController: UIViewController {
+class NewTaskController: UIViewController {
 
     @IBOutlet weak var informaintonField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        informaintonField.becomeFirstResponder()
+        informaintonField.delegate = self
         datePicker.datePickerMode = .dateAndTime
     }
 
@@ -31,10 +31,15 @@ class ActivityController: UIViewController {
             return
         }
         let date = datePicker.date as NSDate
-        var _ = Activity.insert(information: information, deadline: date)
+        var _ = Task.insert(information: information, deadline: date)
         navigationController?.popViewController(animated: true)
     }
 
 }
-
-extension ActivityController: UINavigationControllerDelegate {}
+extension NewTaskController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+extension NewTaskController: UINavigationControllerDelegate {}
