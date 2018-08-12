@@ -10,19 +10,17 @@ import UIKit
 
 class NewTaskController: UIViewController {
 
-    @IBOutlet weak var informaintonField: UITextField!
+    @IBOutlet weak var informaintonField: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        informaintonField.delegate = self
-        datePicker.datePickerMode = .dateAndTime
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        informaintonField.delegate = self
+        informaintonField.text = "Adding task"
+        informaintonField.textColor = UIColor.lightGray
+
         datePicker.datePickerMode = .dateAndTime
-        // Dispose of any resources that can be recreated.
     }
 
     @IBAction func confirmButtonPress(_ sender: Any) {
@@ -36,10 +34,30 @@ class NewTaskController: UIViewController {
     }
 
 }
-extension NewTaskController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+
+extension NewTaskController: UITextViewDelegate {
+//    Logic place holder
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Adding task"
+            textView.textColor = UIColor.lightGray
+        }
+    }
+//    Setup done keyboard
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
         return true
     }
 }
+
 extension NewTaskController: UINavigationControllerDelegate {}

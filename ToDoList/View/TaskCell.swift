@@ -8,15 +8,25 @@
 
 import UIKit
 
+protocol TaskCellDelegate {
+    func setPiority(indexPath: IndexPath)
+    func setComplete(indexPath: IndexPath)
+    func updateTask(indexPath: IndexPath)
+    func deleteTask(indexPath: IndexPath)
+}
+
 class TaskCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var informationField: UILabel!
-    @IBOutlet weak var heartImage: UIButton!
+    @IBOutlet weak var setPiorityButton: UIButton!
     @IBOutlet weak var actionButtonGroup: UIView!
     @IBOutlet weak var heightConstrant: NSLayoutConstraint!
-    @IBOutlet weak var setTimeButton: UIButton!
-    @IBOutlet weak var checkButton: UIButton!
+    @IBOutlet weak var updateTaskButton: UIButton!
+    @IBOutlet weak var setCompleteButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
+
+    var delegate: TaskCellDelegate?
+    var indexPath: IndexPath?
 
     var task: Task? {
         didSet {
@@ -24,9 +34,9 @@ class TaskCell: UITableViewCell {
             let date = task?.deadline! as! Date
             dateLabel.text = Date.toString(date)()
             if task?.priority == false {
-                heartImage.setImage(UIImage(named: "empty-heart"), for: .normal)
+                setPiorityButton.setImage(UIImage(named: "empty-heart"), for: .normal)
             } else {
-                heartImage.setImage(UIImage(named: "filled-heart"), for: .normal)
+                setPiorityButton.setImage(UIImage(named: "filled-heart"), for: .normal)
             }
         }
     }
@@ -35,13 +45,13 @@ class TaskCell: UITableViewCell {
         didSet {
             if !isExpanded {
                 self.heightConstrant.constant = 0.0
-                setTimeButton.isHidden = true
-                checkButton.isHidden = true
+                updateTaskButton.isHidden = true
+                setCompleteButton.isHidden = true
                 deleteButton.isHidden = true
             } else {
                 self.heightConstrant.constant = 98.0
-                setTimeButton.isHidden = false
-                checkButton.isHidden = false
+                updateTaskButton.isHidden = false
+                setCompleteButton.isHidden = false
                 deleteButton.isHidden = false
             }
         }
@@ -49,13 +59,21 @@ class TaskCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        heartImage.isUserInteractionEnabled = true
-        // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
+    @IBAction func setPiorityButtonPress(_ sender: Any) {
+        delegate?.setPiority(indexPath: indexPath!)
+    }
+
+    @IBAction func updateTaskButtonPress(_ sender: Any) {
+        delegate?.updateTask(indexPath: indexPath!)
+    }
+
+    @IBAction func setCompleteButtonPress(_ sender: Any) {
+        delegate?.setComplete(indexPath: indexPath!)
+    }
+    @IBAction func deleteButtonPress(_ sender: Any) {
+        delegate?.deleteTask(indexPath: indexPath!)
     }
 
 }

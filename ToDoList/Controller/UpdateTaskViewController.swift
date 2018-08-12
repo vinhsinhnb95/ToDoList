@@ -10,7 +10,7 @@ import UIKit
 
 class UpdateTaskViewController: UIViewController {
 
-    @IBOutlet weak var informationField: UITextField!
+    @IBOutlet weak var informationField: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var confirmButton: UIButton!
     var task: Task?
@@ -46,6 +46,31 @@ class UpdateTaskViewController: UIViewController {
 extension UpdateTaskViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension UpdateTaskViewController: UITextViewDelegate {
+    //    Logic place holder
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Adding task"
+            textView.textColor = UIColor.lightGray
+        }
+    }
+    //    Setup done keyboard
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
         return true
     }
 }

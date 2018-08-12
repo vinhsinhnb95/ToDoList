@@ -14,59 +14,65 @@ class MainViewController: UIViewController {
 
     var tasks: [Task]!
     var taskSelected: Task?
-    var indexPath: IndexPath?
+    var currentIndexPath: IndexPath?
     var expandedRows = Set<Int>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tasks = Task.getAllNotComplete()
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+//        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
+
     override func viewWillAppear(_ animated: Bool) {
         tasks = Task.getAllNotComplete()
         tableView.reloadData()
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    @IBAction func deleteButtonPress(_ sender: Any) {
-        if let taskSelected = taskSelected {
-            Task.delete(task: taskSelected)
-            tasks = Task.getAllNotComplete()
-            tableView.reloadData()
-            tableView(tableView, didDeselectRowAt: indexPath!)
-        }
-    }
 
-    @IBAction func checkButtonPress(_ sender: Any) {
-        if let taskSelected = taskSelected {
-            Task.checkComplete(task: taskSelected)
-            tasks = Task.getAllNotComplete()
-            tableView.reloadData()
-            tableView(tableView, didDeselectRowAt: indexPath!)
+    func collapsedCurrent() {
+        if let cell = tableView.cellForRow(at: currentIndexPath!) as? TaskCell {
+            cell.isExpanded = false
         }
-    }
-
-    @IBAction func checkPiorityPress(_ sender: Any) {
-        if let taskSelected = taskSelected {
-            Task.checkPiority(task: taskSelected)
-            tasks = Task.getAllNotComplete()
-            tableView.reloadData()
-            tableView(tableView, didDeselectRowAt: indexPath!)
-        }
-    }
-
-    @IBAction func updateButtonPress(_ sender: Any) {
-        tableView(tableView, didDeselectRowAt: indexPath!)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TaskInformation" {
-            if let destination = segue.destination as? UpdateTaskViewController {
-                destination.task = taskSelected
+            if let destination = segue.destination as? UpdateTaskViewController,
+                let task = sender as? Task{
+                destination.task = task
             }
         }
+    }
+
+}
+extension MainViewController: TaskCellDelegate {
+    func setPiority(indexPath: IndexPath) {
+        let task = tasks[indexPath.row]
+        Task.checkPiority(task: task)
+        tasks = Task.getAllNotComplete()
+        tableView.reloadData()
+        collapsedCurrent()
+    }
+
+    func setComplete(indexPath: IndexPath) {
+        let task = tasks[indexPath.row]
+        Task.checkComplete(task: task)
+        tasks = Task.getAllNotComplete()
+        tableView.reloadData()
+        collapsedCurrent()
+    }
+
+    func updateTask(indexPath: IndexPath) {
+        let task = tasks[indexPath.row]
+        performSegue(withIdentifier: "TaskInformation", sender: task)
+        collapsedCurrent()
+    }
+
+    func deleteTask(indexPath: IndexPath) {
+        let task = tasks[indexPath.row]
+        Task.delete(task: task)
+        tasks = Task.getAllNotComplete()
+        tableView.reloadData()
+        collapsedCurrent()
     }
 
 }
@@ -79,44 +85,41 @@ extension MainViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskCell
         let task = tasks[indexPath.row]
         cell.task = task
-        cell.isExpanded = self.expandedRows.contains(indexPath.row)
+        cell.delegate = self
+        cell.indexPath = indexPath
+        cell.isExpanded = false
         return cell
     }
 
 }
 
 extension MainViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 198
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        tableView.estimatedRowHeight = tableView.rowHeight
+        return UITableViewAutomaticDimension
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        taskSelected = tasks[indexPath.row]
-        self.indexPath = indexPath
-        guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell
-            else { return }
-
-        switch cell.isExpanded {
-        case true:
-            self.expandedRows.remove(indexPath.row)
-        case false:
-            self.expandedRows.insert(indexPath.row)
+        guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else {
+            return
         }
-        cell.isExpanded = !cell.isExpanded
+        if let _ = self.currentIndexPath {
+
+            if currentIndexPath != indexPath {
+                collapsedCurrent()
+                currentIndexPath = indexPath
+                cell.isExpanded = true
+            } else {
+                cell.isExpanded = !cell.isExpanded
+            }
+        } else {
+//        No cell selected
+            currentIndexPath = indexPath
+            cell.isExpanded = true
+        }
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
-
     }
 
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        taskSelected = nil
-        guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell
-            else { return }
 
-        self.expandedRows.remove(indexPath.row)
-        cell.isExpanded = false
-
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-    }
 }
