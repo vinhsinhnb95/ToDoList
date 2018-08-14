@@ -28,9 +28,10 @@ class LocalNotification {
 
 //        Set trigger
         var trigger: UNTimeIntervalNotificationTrigger?
-        if let timer = task.deadline?.timeIntervalSinceNow {
-            trigger = UNTimeIntervalNotificationTrigger(timeInterval: timer, repeats: false)
+        guard let timer = task.deadline?.timeIntervalSinceNow , timer > 0 else {
+            return
         }
+        trigger = UNTimeIntervalNotificationTrigger(timeInterval: timer, repeats: false)
 
 //        Create request
         if let idNotification = task.notificationID?.uuidString {

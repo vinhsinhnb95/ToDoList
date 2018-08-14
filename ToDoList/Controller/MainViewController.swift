@@ -24,8 +24,8 @@ class MainViewController: UIViewController {
 
 //        Set notification
         localNotification.requestAuthorization()
+        UNUserNotificationCenter.current().delegate = self
 
-        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -103,9 +103,8 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        tableView.estimatedRowHeight = tableView.rowHeight
-//        return UITableViewAutomaticDimension
-        return 135
+        tableView.estimatedRowHeight = tableView.rowHeight
+        return UITableViewAutomaticDimension
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return taskTypes[section].name

@@ -125,8 +125,8 @@
 		25B96364211A48520022F6CE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2556F21821210DE300C5499E /* TaskType+CoreDataClass.swift */,
 				2556F21D21210E6700C5499E /* Task+CoreDataClass.swift */,
+				2556F21821210DE300C5499E /* TaskType+CoreDataClass.swift */,
 				2556F21C21210DEF00C5499E /* Generated */,
 			);
 			path = Model;

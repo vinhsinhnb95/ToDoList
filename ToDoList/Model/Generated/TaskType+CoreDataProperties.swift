@@ -43,7 +43,7 @@ extension TaskType {
         }
     }
 
-    func getNotCompleteTasks() ->  [Task] {
+    func getNotCompleteTasks() -> [Task] {
         if let tasks = (self.task?.allObjects as? [Task])?.filter({ (task) -> Bool in
             return task.status == false
         }) {
@@ -52,7 +52,7 @@ extension TaskType {
         return [Task]()
     }
 
-    func getCompletedTasks() ->  [Task] {
+    func getCompletedTasks() -> [Task] {
         if let tasks = (self.task?.allObjects as? [Task])?.filter({ (task) -> Bool in
             return task.status == true
         }) {

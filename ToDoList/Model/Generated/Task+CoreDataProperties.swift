@@ -9,6 +9,7 @@
 
 import Foundation
 import CoreData
+import UserNotifications
 
 extension Task {
 
@@ -37,15 +38,24 @@ extension Task {
             print("Cant insert task \(nserror)")
             return nil
         }
-        LocalNotification.shared.setTaskNotification(task: task!)
         print("Insert success!!")
+        LocalNotification.shared.setTaskNotification(task: task!)
         return task
     }
 
-    static func update(task: NSManagedObject, information: String, deadline: NSDate) {
-        let task = task as? Task
-        task?.information = information
-        task?.deadline = deadline
+    static func update(task: Task, information: String, deadline: NSDate) {
+//      remove old notification
+        if let notificationID = task.notificationID?.uuidString {
+            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [notificationID])
+        }
+
+//      update new information
+        task.information = information
+        task.deadline = deadline
+
+//      create new notification
+        LocalNotification.shared.setTaskNotification(task: task)
+
         do {
             try AppDelegate.managedObjectContext?.save()
         } catch {
@@ -53,9 +63,8 @@ extension Task {
         }
     }
 
-    static func setComplete(task: NSManagedObject) {
-        let task = task as? Task
-        task?.status = true
+    static func setComplete(task: Task) {
+        task.status = true
         do {
             try AppDelegate.managedObjectContext?.save()
         } catch {
@@ -63,12 +72,11 @@ extension Task {
         }
     }
 
-    static func setPiority(task: NSManagedObject) {
-        let task = task as? Task
-        if task?.priority == true {
-            task?.priority = false
+    static func setPiority(task: Task) {
+        if task.priority == true {
+            task.priority = false
         } else {
-            task?.priority = true
+            task.priority = true
         }
         do {
             try AppDelegate.managedObjectContext?.save()
@@ -77,9 +85,14 @@ extension Task {
         }
     }
 
-    static func delete(task: NSManagedObject) {
+    static func delete(task: Task) {
+//        Delete task's notification
+        if let notificationId = task.notificationID?.uuidString {
+            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [notificationId])
+        }
         let context = AppDelegate.managedObjectContext
         context?.delete(task)
+
         do {
             try context?.save()
         } catch {
