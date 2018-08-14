@@ -7,24 +7,29 @@
 //
 
 import UIKit
+import UserNotifications
 
 class MainViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
-    var tasks: [Task]!
-    var taskSelected: Task?
+    var taskTypes: [TaskType]!
     var currentIndexPath: IndexPath?
-    var expandedRows = Set<Int>()
+    var localNotification = LocalNotification.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tasks = Task.getAllNotComplete()
-//        self.tableView.rowHeight = UITableViewAutomaticDimension
+        taskTypes = TaskType.getAll()
+        TaskType.generateData()
+
+//        Set notification
+        localNotification.requestAuthorization()
+
+        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        tasks = Task.getAllNotComplete()
+        taskTypes = TaskType.getAll()
         tableView.reloadData()
     }
 
@@ -37,7 +42,7 @@ class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TaskInformation" {
             if let destination = segue.destination as? UpdateTaskViewController,
-                let task = sender as? Task{
+                let task = sender as? Task {
                 destination.task = task
             }
         }
@@ -46,43 +51,46 @@ class MainViewController: UIViewController {
 }
 extension MainViewController: TaskCellDelegate {
     func setPiority(indexPath: IndexPath) {
-        let task = tasks[indexPath.row]
-        Task.checkPiority(task: task)
-        tasks = Task.getAllNotComplete()
+        let task = taskTypes[indexPath.section].getNotCompleteTasks()[indexPath.row]
+        Task.setPiority(task: task)
+        taskTypes = TaskType.getAll()
         tableView.reloadData()
-        collapsedCurrent()
     }
 
     func setComplete(indexPath: IndexPath) {
-        let task = tasks[indexPath.row]
-        Task.checkComplete(task: task)
-        tasks = Task.getAllNotComplete()
+        let task = taskTypes[indexPath.section].getNotCompleteTasks()[indexPath.row]
+        Task.setComplete(task: task)
+        taskTypes = TaskType.getAll()
         tableView.reloadData()
-        collapsedCurrent()
     }
 
     func updateTask(indexPath: IndexPath) {
-        let task = tasks[indexPath.row]
+        let task = taskTypes[indexPath.section].getNotCompleteTasks()[indexPath.row]
         performSegue(withIdentifier: "TaskInformation", sender: task)
-        collapsedCurrent()
     }
 
     func deleteTask(indexPath: IndexPath) {
-        let task = tasks[indexPath.row]
+        let task = taskTypes[indexPath.section].getNotCompleteTasks()[indexPath.row]
+        taskTypes[indexPath.section].removeFromTask(task)
         Task.delete(task: task)
-        tasks = Task.getAllNotComplete()
+        taskTypes = TaskType.getAll()
         tableView.reloadData()
-        collapsedCurrent()
     }
 
 }
 extension MainViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return taskTypes.count
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return taskTypes[section].getNotCompleteTasks().count
+
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskCell
+        let tasks = taskTypes[indexPath.section].getNotCompleteTasks()
         let task = tasks[indexPath.row]
         cell.task = task
         cell.delegate = self
@@ -95,8 +103,12 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        tableView.estimatedRowHeight = tableView.rowHeight
-        return UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = tableView.rowHeight
+//        return UITableViewAutomaticDimension
+        return 135
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return taskTypes[section].name
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -104,7 +116,6 @@ extension MainViewController: UITableViewDelegate {
             return
         }
         if let _ = self.currentIndexPath {
-
             if currentIndexPath != indexPath {
                 collapsedCurrent()
                 currentIndexPath = indexPath
@@ -120,6 +131,11 @@ extension MainViewController: UITableViewDelegate {
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
     }
+}
 
-
+extension MainViewController: UNUserNotificationCenterDelegate {
+//    Show notification on foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
 }

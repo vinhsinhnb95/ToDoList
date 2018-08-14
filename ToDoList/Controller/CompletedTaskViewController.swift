@@ -9,11 +9,11 @@
 import UIKit
 
 class CompletedTaskViewController: UIViewController {
-    var tasks: [Task]!
+    var tasksType: [TaskType]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tasks = Task.getAllCompleted()
+        tasksType = TaskType.getAll()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,13 +30,19 @@ extension CompletedTaskViewController: UITableViewDelegate {
 }
 
 extension CompletedTaskViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return tasksType.count
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return tasksType[section].getCompletedTasks().count
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return tasksType[section].name
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CompletedTaskCell", for: indexPath) as! CompletedTaskCell
-        let task = tasks[indexPath.row]
+        let task = tasksType[indexPath.section].getCompletedTasks()[indexPath.row]
         cell.task = task
         return cell
     }

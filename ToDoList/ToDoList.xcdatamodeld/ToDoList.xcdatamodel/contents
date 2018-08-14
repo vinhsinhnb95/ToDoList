@@ -3,10 +3,17 @@
     <entity name="Task" representedClassName=".Task" syncable="YES">
         <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="information" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notificationID" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="priority" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="taskType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaskType" inverseName="task" inverseEntity="TaskType" syncable="YES"/>
+    </entity>
+    <entity name="TaskType" representedClassName=".TaskType" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="task" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="taskType" inverseEntity="Task" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Task" positionX="322" positionY="-135" width="128" height="103"/>
+        <element name="Task" positionX="322" positionY="-135" width="128" height="133"/>
+        <element name="TaskType" positionX="106" positionY="-135" width="128" height="73"/>
     </elements>
 </model>

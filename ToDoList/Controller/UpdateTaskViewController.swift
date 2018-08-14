@@ -14,6 +14,7 @@ class UpdateTaskViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var confirmButton: UIButton!
     var task: Task?
+    var taskTypes = TaskType.getAll()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,7 @@ class UpdateTaskViewController: UIViewController {
             loadData()
         }
     }
-    func  loadData() {
+    func loadData() {
         informationField.text = task?.information
         datePicker.date = (task?.deadline as? Date) ?? Date()
     }
@@ -42,6 +43,20 @@ class UpdateTaskViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
+}
+extension UpdateTaskViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return taskTypes.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return taskTypes[row].name
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    }
 }
 extension UpdateTaskViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

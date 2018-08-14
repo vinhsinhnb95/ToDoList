@@ -49,7 +49,7 @@ class TaskCell: UITableViewCell {
                 setCompleteButton.isHidden = true
                 deleteButton.isHidden = true
             } else {
-                self.heightConstrant.constant = 98.0
+                self.heightConstrant.constant = 44.0
                 updateTaskButton.isHidden = false
                 setCompleteButton.isHidden = false
                 deleteButton.isHidden = false

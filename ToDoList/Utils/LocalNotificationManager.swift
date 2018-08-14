@@ -11,25 +11,34 @@ import UserNotifications
 
 class LocalNotification {
     static var shared = LocalNotification()
-    let center = UNUserNotificationCenter.current()
 
     func requestAuthorization() {
-        center.requestAuthorization(options: [.alert, .sound]) { (_, error) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (_, error) in
             if error == nil {
                 print("permission granted")
             }
         }
     }
 
-    func sendLocalNotification (in time: TimeInterval, task: Task) {
+    func setTaskNotification (task: Task) {
+//        Set content
         let content = UNMutableNotificationContent()
         content.title = NSString.localizedUserNotificationString(forKey: "Deadline", arguments: nil)
         content.body = NSString.localizedUserNotificationString(forKey: task.information!, arguments: nil)
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: time, repeats: false)
-        let request = UNNotificationRequest(identifier: "Timer", content: content, trigger: trigger)
-        center.add(request) { error in
-            if error == nil {
-                print("Success!!")
+
+//        Set trigger
+        var trigger: UNTimeIntervalNotificationTrigger?
+        if let timer = task.deadline?.timeIntervalSinceNow {
+            trigger = UNTimeIntervalNotificationTrigger(timeInterval: timer, repeats: false)
+        }
+
+//        Create request
+        if let idNotification = task.notificationID?.uuidString {
+            let request = UNNotificationRequest(identifier: idNotification, content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request) { error in
+                if error == nil {
+                    print("Notification Success!!")
+                }
             }
         }
 
