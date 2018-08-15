@@ -9,6 +9,10 @@
 import UIKit
 import UserNotifications
 
+protocol MainViewDelegate {
+    func reloadView()
+}
+
 class MainViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -40,10 +44,14 @@ class MainViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "TaskInformation" {
+        if segue.identifier == "UpdateTask" {
             if let destination = segue.destination as? UpdateTaskViewController,
                 let task = sender as? Task {
                 destination.task = task
+            }
+        } else if segue.identifier == "AddTaskType" {
+            if let destination = segue.destination as? NewTypeViewController {
+                destination.delegate = self
             }
         }
     }
@@ -88,7 +96,6 @@ extension MainViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskCell
         let tasks = taskTypes[indexPath.section].getNotCompleteTasks()
         let task = tasks[indexPath.row]
@@ -136,5 +143,12 @@ extension MainViewController: UNUserNotificationCenterDelegate {
 //    Show notification on foreground
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound])
+    }
+}
+
+extension MainViewController: MainViewDelegate {
+    func reloadView() {
+        taskTypes = TaskType.getAll()
+        tableView.reloadData()
     }
 }
