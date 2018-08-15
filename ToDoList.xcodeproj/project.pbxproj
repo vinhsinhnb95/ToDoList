@@ -12,6 +12,7 @@
 		2556F21F21210E6700C5499E /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2556F21D21210E6700C5499E /* Task+CoreDataClass.swift */; };
 		2556F22021210E6700C5499E /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2556F21E21210E6700C5499E /* Task+CoreDataProperties.swift */; };
 		2556F2492122C13600C5499E /* NewTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2556F2482122C13600C5499E /* NewTypeViewController.swift */; };
+		255C9C262124837F004732F3 /* DeleteTaskTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C9C252124837F004732F3 /* DeleteTaskTypeViewController.swift */; };
 		25B9634E211A43130022F6CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B9634D211A43130022F6CE /* AppDelegate.swift */; };
 		25B96350211A43130022F6CE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B9634F211A43130022F6CE /* MainViewController.swift */; };
 		25B96353211A43130022F6CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25B96351211A43130022F6CE /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 		2556F21D21210E6700C5499E /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2556F21E21210E6700C5499E /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2556F2482122C13600C5499E /* NewTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTypeViewController.swift; sourceTree = "<group>"; };
+		255C9C252124837F004732F3 /* DeleteTaskTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTaskTypeViewController.swift; sourceTree = "<group>"; };
 		25B9634A211A43130022F6CE /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25B9634D211A43130022F6CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25B9634F211A43130022F6CE /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				2556F2482122C13600C5499E /* NewTypeViewController.swift */,
 				25B96375211BE9850022F6CE /* UpdateTaskViewController.swift */,
 				25B96379211BF4430022F6CE /* CompletedTaskViewController.swift */,
+				255C9C252124837F004732F3 /* DeleteTaskTypeViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -178,11 +181,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25B9635F211A43140022F6CE /* Build configuration list for PBXNativeTarget "ToDoList" */;
 			buildPhases = (
-				25B96362211A46D50022F6CE /* ShellScript */,
 				B331182C4F2C78D8FA573468 /* [CP] Check Pods Manifest.lock */,
+				25B96362211A46D50022F6CE /* ShellScript */,
 				25B96346211A43130022F6CE /* Sources */,
 				25B96347211A43130022F6CE /* Frameworks */,
 				25B96348211A43130022F6CE /* Resources */,
+				D7A6919D06999B268847CFC3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -271,6 +275,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D7A6919D06999B268847CFC3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ToDoList/Pods-ToDoList-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ToDoList/Pods-ToDoList-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -282,6 +304,7 @@
 				2556F2492122C13600C5499E /* NewTypeViewController.swift in Sources */,
 				25B9637A211BF4430022F6CE /* CompletedTaskViewController.swift in Sources */,
 				2556F21F21210E6700C5499E /* Task+CoreDataClass.swift in Sources */,
+				255C9C262124837F004732F3 /* DeleteTaskTypeViewController.swift in Sources */,
 				25B96376211BE9850022F6CE /* UpdateTaskViewController.swift in Sources */,
 				25B96380211C3A770022F6CE /* Alert.swift in Sources */,
 				25B96374211BB5AD0022F6CE /* Date.swift in Sources */,

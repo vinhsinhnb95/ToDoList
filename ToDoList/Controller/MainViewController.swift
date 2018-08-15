@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import DropDown
 
 protocol MainViewDelegate {
     func reloadView()
@@ -16,13 +17,18 @@ protocol MainViewDelegate {
 class MainViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var dropDownMenu: UIBarButtonItem!
 
     var taskTypes: [TaskType]!
     var currentIndexPath: IndexPath?
     var localNotification = LocalNotification.shared
+    let rightBarDropDown = DropDown()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setupRightBarDropDown()
+        
         taskTypes = TaskType.getAll()
         TaskType.generateData()
 
@@ -37,6 +43,28 @@ class MainViewController: UIViewController {
         tableView.reloadData()
     }
 
+    func setupRightBarDropDown() {
+        rightBarDropDown.anchorView = dropDownMenu
+
+        rightBarDropDown.dataSource = [
+            "Add new task type",
+            "Delete task type"
+        ]
+        rightBarDropDown.dismissMode = .onTap
+        rightBarDropDown.direction = .any
+
+        rightBarDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            if index == 0 {
+                self.performSegue(withIdentifier: "AddTaskType", sender: nil)
+            } else {
+                self.performSegue(withIdentifier: "DeleteTaskType", sender: nil)
+            }
+        }
+    }
+
+    @IBAction func showMenu(_ sender: Any) {
+        rightBarDropDown.show()
+    }
     func collapsedCurrent() {
         if let cell = tableView.cellForRow(at: currentIndexPath!) as? TaskCell {
             cell.isExpanded = false
@@ -51,6 +79,10 @@ class MainViewController: UIViewController {
             }
         } else if segue.identifier == "AddTaskType" {
             if let destination = segue.destination as? NewTypeViewController {
+                destination.delegate = self
+            }
+        } else if segue.identifier == "DeleteTaskType" {
+            if let destination = segue.destination as? DeleteTaskTypeViewController {
                 destination.delegate = self
             }
         }

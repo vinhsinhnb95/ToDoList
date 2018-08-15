@@ -75,8 +75,14 @@ extension TaskType {
         return taskType
     }
 
-    static func delete(taskType: NSManagedObject) {
+    static func delete(taskType: TaskType) {
         let context = AppDelegate.managedObjectContext
+        if let tasks = taskType.task as? [Task] {
+            for task in tasks {
+                taskType.removeFromTask(task)
+                context?.delete(task)
+            }
+        }
         context?.delete(taskType)
         do {
             try context?.save()

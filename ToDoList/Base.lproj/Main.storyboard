@@ -170,9 +170,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="ToDoList" id="Pab-v8-nm5">
-                        <barButtonItem key="leftBarButtonItem" title="Add Type" id="fum-xS-GBO">
+                        <barButtonItem key="leftBarButtonItem" systemItem="organize" id="fum-xS-GBO">
                             <connections>
-                                <segue destination="Tbc-2M-Tgz" kind="presentation" identifier="AddTaskType" id="YyI-U9-jEX"/>
+                                <action selector="showMenu:" destination="BYZ-38-t0r" id="mAy-cW-bbA"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
@@ -189,13 +189,99 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="dropDownMenu" destination="fum-xS-GBO" id="8eZ-nA-LCC"/>
                         <outlet property="tableView" destination="JpQ-uP-KqR" id="j75-ec-xGK"/>
                         <segue destination="2Ut-ga-znb" kind="show" identifier="UpdateTask" id="y2V-PH-KIh"/>
+                        <segue destination="Tbc-2M-Tgz" kind="presentation" identifier="AddTaskType" id="2CJ-Ij-OSP"/>
+                        <segue destination="nS7-aG-hLL" kind="presentation" identifier="DeleteTaskType" id="OVc-Lb-LNL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1056.8" y="118.29085457271366"/>
+        </scene>
+        <!--Delete Task Type View Controller-->
+        <scene sceneID="SMO-h5-y94">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="nS7-aG-hLL" customClass="DeleteTaskTypeViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" alpha="0.5" contentMode="scaleToFill" id="Sgh-nz-RcG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZmA-II-L1e">
+                                <rect key="frame" x="30" y="104" width="315" height="226"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select task type to delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FW-tx-VZx">
+                                        <rect key="frame" x="16" y="24" width="275" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVn-FZ-eeZ">
+                                        <rect key="frame" x="23" y="61.5" width="268" height="30"/>
+                                        <state key="normal" title="Tap to choose">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="chooseButtonPress:" destination="nS7-aG-hLL" eventType="touchUpInside" id="pp6-kg-0ZY"/>
+                                        </connections>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="clg-yn-68l">
+                                        <rect key="frame" x="23" y="158" width="269" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vuh-lV-hU8">
+                                                <rect key="frame" x="0.0" y="0.0" width="124.5" height="30"/>
+                                                <color key="backgroundColor" red="0.75294117650000003" green="0.91764705879999997" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Back">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="backButtonPress:" destination="nS7-aG-hLL" eventType="touchUpInside" id="tPt-ed-XWj"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCN-MD-who">
+                                                <rect key="frame" x="144.5" y="0.0" width="124.5" height="30"/>
+                                                <color key="backgroundColor" red="0.70196078429999997" green="0.8980392157" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="Confirm">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="confirmButtonPress:" destination="nS7-aG-hLL" eventType="touchUpInside" id="qex-LH-WcR"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="EVn-FZ-eeZ" firstAttribute="top" secondItem="4FW-tx-VZx" secondAttribute="bottom" constant="17" id="9vf-vA-GJ3"/>
+                                    <constraint firstAttribute="trailing" secondItem="EVn-FZ-eeZ" secondAttribute="trailing" constant="24" id="Agl-OF-ReO"/>
+                                    <constraint firstItem="4FW-tx-VZx" firstAttribute="top" secondItem="ZmA-II-L1e" secondAttribute="top" constant="24" id="Cwq-96-iCw"/>
+                                    <constraint firstItem="clg-yn-68l" firstAttribute="leading" secondItem="ZmA-II-L1e" secondAttribute="leading" constant="23" id="FrG-Fz-TSM"/>
+                                    <constraint firstItem="clg-yn-68l" firstAttribute="top" secondItem="EVn-FZ-eeZ" secondAttribute="bottom" constant="66.5" id="GVd-81-z0V"/>
+                                    <constraint firstItem="EVn-FZ-eeZ" firstAttribute="leading" secondItem="ZmA-II-L1e" secondAttribute="leading" constant="23" id="LNZ-Jb-H02"/>
+                                    <constraint firstItem="4FW-tx-VZx" firstAttribute="leading" secondItem="ZmA-II-L1e" secondAttribute="leading" constant="16" id="brn-8M-vEO"/>
+                                    <constraint firstAttribute="trailing" secondItem="clg-yn-68l" secondAttribute="trailing" constant="23" id="gIi-8P-WTE"/>
+                                    <constraint firstAttribute="height" constant="226" id="ljM-4k-r5e"/>
+                                    <constraint firstAttribute="trailing" secondItem="4FW-tx-VZx" secondAttribute="trailing" constant="24" id="mfj-TF-Wqx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Pfa-eA-tih" firstAttribute="trailing" secondItem="ZmA-II-L1e" secondAttribute="trailing" constant="30" id="RzS-n0-FyZ"/>
+                            <constraint firstItem="ZmA-II-L1e" firstAttribute="leading" secondItem="Pfa-eA-tih" secondAttribute="leading" constant="30" id="YlE-aU-zYi"/>
+                            <constraint firstItem="ZmA-II-L1e" firstAttribute="top" secondItem="Pfa-eA-tih" secondAttribute="top" constant="84" id="uoW-2J-cnG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Pfa-eA-tih"/>
+                    </view>
+                    <connections>
+                        <outlet property="dropDownButton" destination="EVn-FZ-eeZ" id="3vl-77-r3R"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="deY-Rh-39k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2045.5999999999999" y="143.47826086956522"/>
         </scene>
         <!--Update Task-->
         <scene sceneID="ekz-dR-LnB">
@@ -352,7 +438,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztp-K6-FAL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1908" y="994"/>
+            <point key="canvasLocation" x="1370" y="985"/>
         </scene>
         <!--New Type View Controller-->
         <scene sceneID="MVz-35-nFW">
@@ -418,7 +504,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgN-hA-aMk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2122" y="139"/>
+            <point key="canvasLocation" x="2006" y="-620"/>
         </scene>
         <!--New Task-->
         <scene sceneID="NPg-Cc-1XX">
