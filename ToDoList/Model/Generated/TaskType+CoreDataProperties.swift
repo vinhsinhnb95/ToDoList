@@ -44,18 +44,42 @@ extension TaskType {
     }
 
     func getNotCompleteTasks() -> [Task] {
-        if let tasks = (self.task?.allObjects as? [Task])?.filter({ (task) -> Bool in
+        if var tasks = (self.task?.allObjects as? [Task])?.filter({ (task) -> Bool in
             return task.status == false
         }) {
+            tasks = tasks.sorted(by: { (task1, task2) -> Bool in
+                if task1.priority == true, task2.priority == false {
+                    return true
+                } else if task1.priority == false, task2.priority == true {
+                    return false
+                } else {
+                    if let date1 = task1.deadline as? Date, let date2 = task2.deadline as? Date {
+                        return date1 > date2
+                    }
+                    return false
+                }
+            })
             return tasks
         }
         return [Task]()
     }
 
     func getCompletedTasks() -> [Task] {
-        if let tasks = (self.task?.allObjects as? [Task])?.filter({ (task) -> Bool in
+        if var tasks = (self.task?.allObjects as? [Task])?.filter({ (task) -> Bool in
             return task.status == true
         }) {
+            tasks = tasks.sorted(by: { (task1, task2) -> Bool in
+                if task1.priority == true, task2.priority == false {
+                    return true
+                } else if task1.priority == false, task2.priority == true {
+                    return false
+                } else {
+                    if let date1 = task1.deadline as? Date, let date2 = task2.deadline as? Date {
+                        return date1 > date2
+                    }
+                    return false
+                }
+            })
             return tasks
         }
         return [Task]()
