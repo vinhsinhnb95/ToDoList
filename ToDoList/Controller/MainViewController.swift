@@ -106,7 +106,7 @@ extension MainViewController: TaskCellDelegate {
 
     func updateTask(indexPath: IndexPath) {
         let task = taskTypes[indexPath.section].getNotCompleteTasks()[indexPath.row]
-        performSegue(withIdentifier: "TaskInformation", sender: task)
+        performSegue(withIdentifier: "UpdateTask", sender: task)
     }
 
     func deleteTask(indexPath: IndexPath) {
