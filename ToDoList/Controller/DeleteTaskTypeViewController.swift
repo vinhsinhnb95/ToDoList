@@ -58,6 +58,9 @@ class DeleteTaskTypeViewController: UIViewController {
             TaskType.delete(taskType: currentTaskType)
             delegate?.reloadView()
             dismiss(animated: true, completion: nil)
+        } else {
+            self.present(Alert(message: "Must choose task type").alert, animated: true, completion: nil)
+            return
         }
     }
 
