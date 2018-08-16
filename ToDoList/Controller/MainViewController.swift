@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         setupRightBarDropDown()
-        
+
         taskTypes = TaskType.getAll()
         TaskType.generateData()
 

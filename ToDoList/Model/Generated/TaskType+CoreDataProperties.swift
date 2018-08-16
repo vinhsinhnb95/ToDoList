@@ -38,8 +38,8 @@ extension TaskType {
 
     static func generateData() {
         if getAll().count == 0 {
-            let _ = TaskType.insert(name: "Personal")
-            let _ = TaskType.insert(name: "Work")
+            _ = TaskType.insert(name: "Personal")
+            _ = TaskType.insert(name: "Work")
         }
     }
 

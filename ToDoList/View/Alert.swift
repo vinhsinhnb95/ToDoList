@@ -12,7 +12,7 @@ import UIKit
 class Alert {
 
     var alert: UIAlertController
-    
+
     init(message: String) {
         alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.alert)
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
